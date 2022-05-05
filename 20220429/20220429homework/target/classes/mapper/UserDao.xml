@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lee.dao.UserDao">
+	<select id="findUserByName" resultType="string" parameterType="string">
+		SELECT *
+		FROM shop_user
+		WHERE username = #{username}
+	</select>
+
+	<insert id="addUser" parameterType="string">
+		INSERT INTO shop_user
+		VALUES (null, #{username}, #{password}, #{email}, #{image}, 0, #{code})
+	</insert>
+
+	<select id="findByCode" parameterType="string" resultType="string">
+		SELECT *
+		FROM shop_user
+		WHERE code = #{code}
+	</select>
+
+	<update id="updateStatusById" parameterType="int">
+		UPDATE shop_user
+		SET status = 1
+		WHERE id = #{id}
+	</update>
+
+	<select id="findUserByUsernameAndPassword" parameterType="string" resultType="string">
+		SELECT *
+		FROM shop_user
+		WHERE username = #{username}
+		  AND password = #{password}
+	</select>
+
+	<select id="findPasswordByUserId" resultType="string" parameterType="int">
+		select password
+		from shop_user
+		where id = #{userId}
+	</select>
+
+	<update id="updatePassword">
+		update shop_user
+		set password=#{newPassword}
+		where id = #{id}
+	</update>
+
+	<update id="addHeadImage">
+		update shop_user
+		set image=#{image}
+		where id = #{id}
+	</update>
+
+	<select id="findImageById" resultType="string" parameterType="int">
+		select image
+		from shop_user
+		where id = #{id}
+	</select>
+
+</mapper>
