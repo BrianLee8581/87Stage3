@@ -21,4 +21,4 @@ spring:
 server:
   port: 9000
 ---
-helloinfo:宁可累死自己也要卷死别人
+helloinfo: ${宁可累死自己也要卷死别人
