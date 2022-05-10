@@ -14,10 +14,14 @@ public class Demo03SpringBootConfigApplication {
         SpringApplication.run(Demo03SpringBootConfigApplication.class, args);
     }
 
-
+    //获取配置文件中定义的端口
+    @Value("${server.port}")
+    private String port;
 
     @GetMapping("/hello")
     public String hello() {
-        return "Hello World";
+        return "Hello World，the server port is " + port;
     }
+
+
 }

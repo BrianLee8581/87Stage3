@@ -20,3 +20,4 @@ spring:
   profiles: prod
 server:
   port: 9000
+
