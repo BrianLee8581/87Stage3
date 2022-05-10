@@ -1,4 +1,22 @@
-#???????????--application.yml
+#指定采用哪一个环境配置
 spring:
   profiles:
-    active: test
+    active: prod
+---
+#设定test环境，并将端口指定为8081
+spring:
+  profiles: test
+server:
+  port: 8081
+---
+#设定dev环境，并将端口指定为8082
+spring:
+  profiles: dev
+server:
+  port: 8082
+---
+#设定prod环境，并将端口指定为9000
+spring:
+  profiles: prod
+server:
+  port: 9000

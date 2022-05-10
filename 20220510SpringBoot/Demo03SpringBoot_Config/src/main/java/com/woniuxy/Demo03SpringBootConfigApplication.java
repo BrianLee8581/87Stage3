@@ -1,5 +1,6 @@
 package com.woniuxy;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,8 @@ public class Demo03SpringBootConfigApplication {
     public static void main(String[] args) {
         SpringApplication.run(Demo03SpringBootConfigApplication.class, args);
     }
+
+
 
     @GetMapping("/hello")
     public String hello() {
