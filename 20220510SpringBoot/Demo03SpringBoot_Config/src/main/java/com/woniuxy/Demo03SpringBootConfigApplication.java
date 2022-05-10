@@ -18,10 +18,17 @@ public class Demo03SpringBootConfigApplication {
     @Value("${server.port}")
     private String port;
 
+    @Value("${helloinfo}")
+    private String helloinfo;
+
     @GetMapping("/hello")
     public String hello() {
         return "Hello World，the server port is " + port;
     }
 
+    @GetMapping("/helloinfo")
+    public String helloinfo() {
+        return helloinfo;
+    }
 
 }
