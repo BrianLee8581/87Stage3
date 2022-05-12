@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.mapper.UserMapper">
+    <resultMap id="roleMap" type="com.woniuxy.model.User">
+        <id property="userId" column="userId"/>
+        <association property="role" column="role_id" select="com.woniuxy.springbootdemo03.mapper.RoleMapper.findRoleById" fetchType="lazy"/>
+    </resultMap>
+    <select id="findAllUsers" resultMap="roleMap">
+        select user_id userId, user_loginId userLoginId,user_loginPwd userLoginPwd,user_name userName,user_email userEmail,user_phone userPhone,
+               user_address userAddress,role_id from sys_users
+    </select>
+    <!--修改用户-->
+    <update id="updateUser" parameterType="com.woniuxy.model.User">
+        update sys_users
+        <set>
+            <if test="userLoginId!=null">user_loginId=#{userLoginId}</if>
+            <if test="userLoginPwd!=null">user_loginPwd=#{userLoginPwd}</if>
+            <if test="userName!=null">user_name=#{userName}</if>
+            <if test="userEmail!=null">user_email=#{userEmail}</if>
+            <if test="userPhone!=null">user_phone=#{userPhone}</if>
+            <if test="userAddress!=null">user_address=#{userAddress}</if>
+            <if test="role!=null">role_id=#{role.id}</if>
+        </set>
+        where user_id=#{id}
+    </update>
+
+    <!--添加用户-->
+    <insert id="addUser" parameterType="com.woniuxy.model.User">
+        insert into sys_users (user_id, user_loginId, user_loginPwd, user_name,
+                               user_email, user_phone, user_address, role_id)
+        values (#{userId},#{userLoginId},#{userLoginPwd},#{userName},#{userEmail},#{userPhone},#{userAddress},#{role.id});
+    </insert>
+
+    <!--通过过登录名找到用户-->
+    <select id="findUserByLoginId" resultMap="roleMap">
+        select * from sys_users where user_loginId=#{userLoginId}
+    </select>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.mapper.MenuMapper">
+    <!--定义结果集-->
+    <resultMap id="MenuResultMap" type="menu">
+        <id property="id" column="menu_id"/>
+        <result property="name" column="menu_name"/>
+        <result property="url" column="menu_url"/>
+        <result property="desc" column="menu_desc"/>
+        <result property="order" column="menu_order"/>
+        <!--配置多对一-->
+        <association property="parentMenu" column="menu_pid" select="findMenuById" fetchType="lazy"/>
+    </resultMap>
+
+    <!--根据编号获取Menu对象-->
+    <select id="findMenuById" resultMap="MenuResultMap" parameterType="int">
+        SELECT * FROM menu WHERE menu_id = #{id}
+    </select>
+
+    <!--显示所有菜单-->
+    <select id="findAllMenus" resultMap="MenuResultMap">
+        SELECT * FROM sys_menus
+    </select>
+
+    <!--根据父菜单编号获取子菜单-->
+    <select id="findMenusByParentId" resultMap="MenuResultMap" parameterType="int">
+        SELECT * FROM sys_menus WHERE menu_pid = #{parentId}
+    </select>
+
+
+    <!--根据角色编号获取菜单列表-->
+    <select id="findMenusByRoleId" resultMap="MenuResultMap" parameterType="int">
+            SELECT sys_menus.*
+            FROM sys_menus INNER JOIN sys_roles_menus
+                ON sys_menus.menu_id = sys_roles_menus.menu_id
+                            Inner JOIN sys_roles ON sys_roles.role_id = sys_roles_menus.role_id
+    WHERE sys_roles.role_id=#{roleId}
+    </select>
+</mapper>

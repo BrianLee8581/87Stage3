@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.mapper.RoleMapper">
+    <!--定义结果集-->
+    <resultMap id="RoleResultMap" type="Role">
+        <id property="id" column="role_id"/>
+        <result property="name" column="role_name"/>
+        <result property="desc" column="role_desc" />
+    </resultMap>
+    <!--添加角色-->
+    <insert id="addRole" useGeneratedKeys="true" keyProperty="id" parameterType="boolean">
+        INSERT INTO sys_roles(role_name,role_desc)VALUES(#{name},#{desc})
+    </insert>
+
+    <!--获取角色列表-->
+    <select id="findAllRoles" resultMap="RoleResultMap">
+        SELECT * FROM sys_roles
+    </select>
+
+    <!--根据角色编号获取角色对象-->
+    <select id="findRoleById" resultMap="RoleResultMap">
+        SELECT * FROM sys_roles WHERE role_id=#{id}
+    </select>
+
+    <!--修改角色-->
+    <update id="updateRole" parameterType="boolean">
+        UPDATE sys_roles SET role_name=#{name},role_desc=#{desc} WHERE role_id=#{id}
+    </update>
+</mapper>
